@@ -32,7 +32,7 @@ export default  [
       component: article_create,
     },
     {
-      path: '/admin//article_edit:id',
+      path: '/admin/article_edit/:id',
       name: 'article_edit',
       component: article_edit,
     }
