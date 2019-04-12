@@ -1,9 +1,9 @@
-import login from './../../pages/Login.vue';
-import user from './../../pages/User.vue';
-import classify from './../../pages/Classify.vue';
-import aritcle from './../../pages/Aritcle.vue';
-import article_create from './../../pages/ArticleCreate.vue';
-import article_edit from './../../pages/ArticleEdit.vue';
+import login from '@/pages/Login.vue';
+import user from '@/pages/User.vue';
+import classify from '@/pages/Classify.vue';
+import aritcle from '@/pages/Aritcle.vue';
+import article_create from '@/pages/ArticleCreate.vue';
+import article_edit from '@/pages/ArticleEdit.vue';
 
 export default  [
     {
@@ -32,7 +32,7 @@ export default  [
       component: article_create,
     },
     {
-      path: '/admin/article_edit',
+      path: '/admin//article_edit:id',
       name: 'article_edit',
       component: article_edit,
     }
