@@ -5,7 +5,7 @@ npm install
 
 启动node项目
 npm start
-
+72aae9d7f3b200147459e677e33e79a1
 #####统一路由前缀: api/
 
 ###登录页
@@ -14,7 +14,7 @@ npm start
 post请求
 前端需要提交的数据{
     phone:手机号码,
-    code:密码
+    password:密码
 }
 后端通过res.body获取数据
 后端正确时返回的数据{
@@ -44,7 +44,7 @@ post请求
 前端需要提交的数据{
     name:名称,
     phone:手机,
-    code:密码
+    password:密码
 }
 后端通过res.body获取数据
 后端正确时返回的数据{
@@ -54,13 +54,13 @@ post请求
 
 
 ##修改指定用户
-路由：/user:id,
+路由：/user/:id,
 put请求
 <!-- 缺一不可 -->
 前端需要提交的数据{
     name:名称,
     phone:手机,
-    code:密码
+    password:密码
 }
 后端通过res.body获取数据
 后端正确时返回的数据{
@@ -70,7 +70,7 @@ put请求
 
 
 ##删除指定用户
-路由：/user:id,
+路由：/user/:id,
 delete请求
 <!-- 缺一不可 -->
 前端需要提交的数据{
@@ -112,7 +112,7 @@ post请求
 }
 
 ##修改指定分类
-路由：/classify:id,
+路由：/classify/:id,
 put请求
 前端需要提交的数据{
     title:分类名称
@@ -124,7 +124,7 @@ put请求
 }
 
 ##删除指定分类
-路由：/classify:id,
+路由：/classify/:id,
 delete请求
 前端需要提交的数据{
 }
@@ -179,7 +179,7 @@ post请求
 前端需要提交的数据{	
 	"title":"标题",
 	"content":"内容",
-	"user_id":"用户id",
+	"token":"用户秘要",
 	"class_id":"分类id"
 }
 后端通过res.body获取数据
@@ -189,7 +189,7 @@ post请求
 }
 
 ##修改文章
-路由：/article:id,
+路由：/article/:id,
 put请求
 前端需要提交的数据{	
 	"title":"标题",
@@ -204,7 +204,7 @@ put请求
 
 
 ##删除文章
-路由：/article:id,
+路由：/article/:id,
 delete请求
 前端需要提交的数据{	
 }

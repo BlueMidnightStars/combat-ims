@@ -1,6 +1,6 @@
 const model = require('./base.js');
 class mood extends model {
-    constructor(props = 'title') {
+    constructor(props = 'article') {
         super(props)
     }
 }

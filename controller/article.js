@@ -1,5 +1,5 @@
-let titleModels = require('./../models/title');
-let authCode = require('./../utils/authCode');
+let titleModels = require('../models/article');
+let authCode = require('../utils/authCode');
 let titleController = {
     alltitle:async function(req, res, next){
         try{

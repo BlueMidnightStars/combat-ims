@@ -6,14 +6,14 @@ const userController = {
             let ttt = req.cookies.ac;
             console.log(123,ttt);
             let phone = req.body.phone;
-            let code = req.body.code;
-            let decide = await user.select({phone:phone,code:code});
+            let password = req.body.password;
+            let decide = await user.select({phone:phone,password:password});
             console.log(decide);
             if(decide[0].id == null){
                 throw new Error('无此用户');
             }
             console.log(authCodeFunc);
-            let id = decide[0].id  + '/tmp' + code;
+            let id = decide[0].id  + '/tmp' + password;
             let auth_Code = authCodeFunc(id,'ENCODE');
             res.cookie('ac', auth_Code, { maxAge: 24* 60 * 60 * 1000 });
             res.json({code:200, data:'有此用户',token:auth_Code});
@@ -34,11 +34,11 @@ const userController = {
         try{
             let name = req.body.name;
             let phone = req.body.phone;
-            let code = req.body.code;
-            if(!name || !phone || !code){
+            let password = req.body.password;
+            if(!name || !phone || !password){
                 throw new Error('缺少必要参数'); 
             }
-            let addUser_id =  await user.insert({name,phone,code});
+            let addUser_id =  await user.insert({name,phone,password});
             if(addUser_id == null){
                 throw new Error('添加失败'); 
             }
@@ -53,11 +53,11 @@ const userController = {
         let user_id = req.params.id;
         let name = req.body.name;
         let phone = req.body.phone;
-        let code = req.body.code;
-        if(!user_id || !name || !phone || !code){
+        let password = req.body.password;
+        if(!user_id || !name || !phone || !password){
             throw new Error('缺少必要参数'); 
         }
-        let alter = await user.update(user_id,{name:name,phone:phone,code:code});
+        let alter = await user.update(user_id,{name:name,phone:phone,password:password});
         if(alter.toString() == 0){
             throw new Error('修改失败'); 
         }
