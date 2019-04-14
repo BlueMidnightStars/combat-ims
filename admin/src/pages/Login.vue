@@ -16,21 +16,15 @@
           <div class="buttom-container">
             <a-button class="login-buttom" type="primary">登录</a-button>
           </div>
-          
         </div>
       </a-layout-content>
     </a-layout>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-
-
 export default {
   name: 'Login',
   components: {
-
   },
 };
 </script>
@@ -77,7 +71,6 @@ export default {
           width: 100px;
         }
       }
-      
     }
   }
 }

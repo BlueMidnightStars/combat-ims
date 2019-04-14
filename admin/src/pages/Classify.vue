@@ -7,8 +7,7 @@
       <a-modal
         v-model="visible"
         title="添加分类"
-        onOk="handleOk"
-      >
+        onOk="handleOk">
         <template slot="footer">
           <a-button key="back" @click="handleCancel">Return</a-button>
           <a-button key="submit" type="primary" :loading="loading" @click="handleOk">
@@ -22,7 +21,7 @@
       </a-modal>
     </div>
     <a-table :columns="columns" :dataSource="data" bordered style="width:'100%'">
-      <template v-for="col in ['id', 'phone', 'code']" :slot="col" slot-scope="text, record, index">
+      <template v-for="col in ['id', 'phone', 'code']" :slot="col" slot-scope="text, record,">
         <div :key="col">
           <a-input
             v-if="record.editable"
@@ -33,7 +32,7 @@
           <template v-else>{{text}}</template>
         </div>
       </template>
-      <template slot="operation" slot-scope="text, record, index">
+      <template slot="operation" slot-scope="text, record,">
         <div class='editable-row-operations'>
           <span v-if="record.editable">
             <a @click="() => save(record.key)">Save</a>
@@ -49,9 +48,8 @@
     </a-table>
   </commonality>
 </template>
-
 <script>
-import commonality from '@/commonality/header_sidebar';
+import commonality from '@/commonality/header_sidebar.vue';
 const columns = [{
   title: 'id',
   dataIndex: 'id',
@@ -73,7 +71,6 @@ const columns = [{
   dataIndex: 'operation',
   scopedSlots: { customRender: 'operation' },
 }]
-
 const data = []
 for (let i = 0; i < 100; i++) {
   data.push({
@@ -83,11 +80,10 @@ for (let i = 0; i < 100; i++) {
     code: `London Park no. ${i}`,
   })
 }
-
 export default {
   name: 'Classify',
   components: {
-    commonality
+    commonality,
   },
   data () {
     this.cacheData = data.map(item => ({ ...item }))
@@ -112,7 +108,7 @@ export default {
     handleCancel(e) {
       this.visible = false;
     },
-    handleChange (value, key, column) {
+    handleChange(value, key, column) {
       const newData = [...this.data]
       const target = newData.filter(item => key === item.key)[0]
       if (target) {
@@ -120,7 +116,7 @@ export default {
         this.data = newData
       }
     },
-    edit (key) {
+    edit(key) {
       const newData = [...this.data]
       const target = newData.filter(item => key === item.key)[0]
       if (target) {
@@ -128,7 +124,7 @@ export default {
         this.data = newData
       }
     },
-    save (key) {
+    save(key) {
       const newData = [...this.data]
       const target = newData.filter(item => key === item.key)[0]
       if (target) {
@@ -137,7 +133,7 @@ export default {
         this.cacheData = newData.map(item => ({ ...item }))
       }
     },
-    cancel (key) {
+    cancel(key) {
       const newData = [...this.data]
       const target = newData.filter(item => key === item.key)[0]
       if (target) {
@@ -153,5 +149,4 @@ export default {
 .editable-row-operations a {
   margin-right: 8px;
 }
-
 </style>
