@@ -50,11 +50,12 @@
 </template>
 <script>
 import commonality from '@/commonality/header_sidebar.vue';
+
 const columns = [{
   title: 'id',
   dataIndex: 'id',
   width: '25%',
-  padding:'0',
+  padding: '0',
   scopedSlots: { customRender: 'id' },
 }, {
   title: 'phone',
@@ -70,79 +71,80 @@ const columns = [{
   title: 'operation',
   dataIndex: 'operation',
   scopedSlots: { customRender: 'operation' },
-}]
-const data = []
+}];
+const data = [];
+// eslint-disable-next-line
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i.toString(),
     id: `Edrward ${i}`,
     phone: 32,
     code: `London Park no. ${i}`,
-  })
+  });
 }
 export default {
   name: 'Classify',
   components: {
     commonality,
   },
-  data () {
-    this.cacheData = data.map(item => ({ ...item }))
+  data() {
+    this.cacheData = data.map(item => ({ ...item }));
     return {
       data,
       columns,
       loading: false,
       visible: false,
-    }
+    };
   },
   methods: {
     showModal() {
       this.visible = true;
     },
-    handleOk(e) {
+    handleOk() {
       this.loading = true;
       setTimeout(() => {
         this.visible = false;
         this.loading = false;
       }, 3000);
     },
-    handleCancel(e) {
+    handleCancel() {
       this.visible = false;
     },
     handleChange(value, key, column) {
-      const newData = [...this.data]
-      const target = newData.filter(item => key === item.key)[0]
+      const newData = [...this.data];
+      const target = newData.filter(item => key === item.key)[0];
       if (target) {
-        target[column] = value
-        this.data = newData
+        target[column] = value;
+        this.data = newData;
       }
     },
     edit(key) {
-      const newData = [...this.data]
-      const target = newData.filter(item => key === item.key)[0]
+      const newData = [...this.data];
+      const target = newData.filter(item => key === item.key)[0];
       if (target) {
-        target.editable = true
-        this.data = newData
+        target.editable = true;
+        this.data = newData;
       }
     },
     save(key) {
-      const newData = [...this.data]
-      const target = newData.filter(item => key === item.key)[0]
+      const newData = [...this.data];
+      const target = newData.filter(item => key === item.key)[0];
       if (target) {
-        delete target.editable
-        this.data = newData
-        this.cacheData = newData.map(item => ({ ...item }))
+        delete target.editable;
+        this.data = newData;
+        this.cacheData = newData.map(item => ({ ...item }));
       }
     },
     cancel(key) {
-      const newData = [...this.data]
-      const target = newData.filter(item => key === item.key)[0]
+      const newData = [...this.data];
+      const target = newData.filter(item => key === item.key)[0];
       if (target) {
-        Object.assign(target, this.cacheData.filter(item => key === item.key)[0])
-        delete target.editable
-        this.data = newData
+        Object.assign(target, this.cacheData.filter(item => key === item.key)[0]);
+        delete target.editable;
+        this.data = newData;
       }
     },
-  }
+  },
 };
 </script>
 <style scoped>

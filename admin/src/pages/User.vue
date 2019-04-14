@@ -58,6 +58,7 @@
 </template>
 <script>
 import commonality from '@/commonality/header_sidebar.vue';
+
 const columns = [{
   title: 'name',
   dataIndex: 'name',
@@ -78,8 +79,9 @@ const columns = [{
   title: 'operation',
   dataIndex: 'operation',
   scopedSlots: { customRender: 'operation' },
-}]
-const data = []
+}];
+const data = [];
+// eslint-disable-next-line
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i.toString(),
@@ -106,14 +108,14 @@ export default {
     showModal() {
       this.visible = true;
     },
-    handleOk(e) {
+    handleOk() {
       this.loading = true;
       setTimeout(() => {
         this.visible = false;
         this.loading = false;
       }, 3000);
     },
-    handleCancel(e) {
+    handleCancel() {
       this.visible = false;
     },
     handleChange(value, key, column) {
@@ -133,10 +135,10 @@ export default {
       }
     },
     save(key) {
-      console.log(1);
+      console.log(key);
     },
     cancel(key) {
-      console.log(2);
+      console.log(key);
     },
   },
 };
