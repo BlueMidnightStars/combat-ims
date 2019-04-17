@@ -36,7 +36,7 @@
         </div>
   </a-layout-sider>
       <a-layout>
-        <a-layout-header style="text-align: right;"><a-button>退出系统</a-button></a-layout-header>
+        <a-layout-header style="text-align: right;"><a-button @click="exit">退出系统</a-button></a-layout-header>
         <a-layout-content id="cite-container"><slot></slot></a-layout-content>
         <a-layout-footer>午夜出品</a-layout-footer>
       </a-layout>
@@ -54,6 +54,20 @@ export default {
       defaultSelectedKeys: [],
     };
   },
+  created: function () {
+    let token = localStorage.getItem('token');
+    if(token == null){
+      this.$router.push({name: 'login'})
+    }
+  },
+  methods: {
+    exit(){
+      console.log(1);
+      localStorage.removeItem('token');
+      this.$router.go(0);
+      
+    }
+  }
 };
 </script>
 <style>

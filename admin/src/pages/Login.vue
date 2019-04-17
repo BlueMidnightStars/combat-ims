@@ -8,13 +8,13 @@
             极客信息发布管理
           </p>
           <div class="login-phone-input">
-            <a-input placeholder="手机号码" />
+            <a-input v-model="phone" placeholder="手机号码" />
           </div>
           <div class="login-code-input">
-            <a-input placeholder="登录密码" />
+            <a-input type="password" v-model="password" placeholder="登录密码" />
           </div>
           <div class="buttom-container">
-            <a-button class="login-buttom" type="primary">登录</a-button>
+            <a-button class="login-buttom" type="primary" @click="login">登录</a-button>
           </div>
         </div>
       </a-layout-content>
@@ -22,9 +22,43 @@
   </div>
 </template>
 <script>
+import user from '@/models/user';
+
 export default {
   name: 'Login',
+  data() {
+    return {
+      phone: '',
+      password: '',
+    };
+  },
+  created: function () {
+    let token = localStorage.getItem('token');
+    if(token != null){
+      this.$router.push({name: 'user'})
+    }
+  },
   components: {
+  },
+  methods: {
+    // eslint-disable-next-line
+    login:function() {
+      console.log(this.password, this.phone);
+      let password = this.password;
+      let phone = this.phone;
+      if(!phone || !password){
+        return alert('请输入账号与密码')
+      }
+      user.login({phone:phone,password:password}).then(res => {
+        console.log(res)
+        if(res.data.code == 200){
+          localStorage.setItem('token',res.data.token);
+          this.$router.push({name: 'user'})
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+    },
   },
 };
 </script>

@@ -2,30 +2,19 @@
 <template>
   <commonality>
     <div class="user-add-container">
-      <a href="javascript:;" class="user-add-title">新建文章</a>
+      <a href="javascript:;" class="user-add-title" @click="add">新建文章</a>
     </div>
-    <a-table :columns="columns" :dataSource="data" bordered style="width:'100%'">
-      <template v-for="col in ['id', 'phone', 'code']" :slot="col" slot-scope="text, record">
-        <div :key="col">
-          <a-input
-            v-if="record.editable"
-            style="margin: -5px 0;"
-            :value="text"
-            @change="e => handleChange(e.target.value, record.key, col)"
-          />
-          <template v-else>{{text}}</template>
+    <a-table :columns="columns" :dataSource="aritcleData" bordered style="width:'100%'">
+      <template v-for="key in ['id','user_id','class','title']" slot-scope="text">
+        <div :key="key">
+          <template>{{text}}</template>
         </div>
       </template>
       <template slot="operation" slot-scope="text, record">
         <div class='editable-row-operations'>
-          <span v-if="record.editable">
-            <a @click="() => save(record.key)">Save</a>
-            <a-popconfirm title='Sure to cancel?' @confirm="() => cancel(record.key)">
-              <a>Cancel</a>
-            </a-popconfirm>
-          </span>
-          <span v-else>
-            <a @click="() => edit(record.key)">Edit</a>
+          <span>
+            <a @click="() => compile(record.id)">编辑</a>|
+            <a @click="() => deleteArticle(record.id)">删除</a>
           </span>
         </div>
       </template>
@@ -34,83 +23,111 @@
 </template>
 <script>
 import commonality from '@/commonality/header_sidebar.vue';
+import article from '@/models/article';
+import Classify from '@/models/class';
+
 const columns = [{
   title: 'id',
   dataIndex: 'id',
-  width: '25%',
+  width: '10%',
   padding:'0',
   scopedSlots: { customRender: 'id' },
 }, {
-  title: 'phone',
-  dataIndex: 'phone',
+  title: '用户id',
+  dataIndex: 'user_id',
   width: '15%',
-  scopedSlots: { customRender: 'phone' },
-}, {
-  title: 'code',
-  dataIndex: 'code',
-  width: '40%',
-  scopedSlots: { customRender: 'code' },
-}, {
-  title: 'operation',
+  scopedSlots: { customRender: 'user_id' },
+},{
+  title: '分类名称',
+  dataIndex: 'class',
+  width: '15%',
+  scopedSlots: { customRender: 'class' },
+},{
+  title: '标题',
+  dataIndex: 'title',
+  width: '15%',
+  scopedSlots: { customRender: 'title' },
+},{
+  title: '操作',
   dataIndex: 'operation',
   scopedSlots: { customRender: 'operation' },
 }]
-const data = []
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i.toString(),
-    id: `Edrward ${i}`,
-    phone: 32,
-    code: `London Park no. ${i}`,
-  })
-}
+
 export default {
   name: 'Aritcle',
   components: {
     commonality,
   },
   data() {
-    this.cacheData = data.map(item => ({ ...item }))
     return {
-      data,
       columns,
+      toekn:'',
+      aritcleData:[],
+      classData:[],
     }
   },
+  created:function(){
+    Classify.get().then(res => {
+      let list = res.data.data;
+      this.classData = list;
+    }).then(() => {
+      let classData = this.classData;
+      article.get().then(res => {
+        let list = res.data.data;
+        list.forEach((item,index) => {
+          item.key = index;
+          classData.forEach(data => {
+            if(item.class_id == data.id){
+              item.class = data.title;
+            }
+            if(item.class == null){
+              item.class = '无';
+            }
+          })
+        })
+        this.aritcleData = list;
+      });
+    })
+    this.token = localStorage.getItem('token');
+  },
   methods: {
-    handleChange(value, key, column) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        target[column] = value;
-        this.data = newData;
-      }
+    add(){
+      this.$router.push({path: '/admin/article_create'})
+      
     },
-    edit(key){
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        target.editable = true;
-        this.data = newData;
-      }
+    compile(id){
+      this.$router.push({path: '/admin/article_edit/' + id})
     },
-    save(key) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        delete target.editable;
-        this.data = newData;
-        this.cacheData = newData.map(item => ({ ...item }));
-      }
-    },
-    cancel(key) {
-      const newData = [...this.data]
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        Object.assign(target, this.cacheData.filter(item => key === item.key)[0]);
-        delete target.editable;
-        this.data = newData;
-      }
-    },
+    deleteArticle(id){
+      article.delete(id).then(res => {
+        if(res.data.code == 200){
+            this.$message.info('删除成功');
+            Classify.get().then(res => {
+              let list = res.data.data;
+              this.classData = list;
+            }).then(() => {
+              let classData = this.classData;
+              article.get().then(res => {
+                let list = res.data.data;
+                list.forEach((item,index) => {
+                  item.key = index;
+                  classData.forEach(data => {
+                    if(item.class_id == data.id){
+                      item.class = data.title;
+                    }
+                    if(item.class == null){
+                      item.class = '无';
+                    }
+                  })
+                })
+                this.aritcleData = list;
+              });
+            })
+          }
+      }).catch( err =>{
+          this.$message.info('删除失败');
+      })
+    }
   }
 };
 </script>
