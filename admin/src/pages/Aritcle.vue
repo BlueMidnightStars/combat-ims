@@ -51,8 +51,7 @@ const columns = [{
   title: '操作',
   dataIndex: 'operation',
   scopedSlots: { customRender: 'operation' },
-}]
-
+}];
 export default {
   name: 'Aritcle',
   components: {
@@ -92,43 +91,42 @@ export default {
   },
   methods: {
     add(){
-      this.$router.push({path: '/admin/article_create'})
-      
+      this.$router.push({path: '/admin/article_create'});
     },
     compile(id){
-      this.$router.push({path: '/admin/article_edit/' + id})
+      this.$router.push({path: '/admin/article_edit/' + id});
     },
     deleteArticle(id){
       article.delete(id).then(res => {
         if(res.data.code == 200){
-            this.$message.info('删除成功');
-            Classify.get().then(res => {
+          this.$message.info('删除成功');
+          Classify.get().then(res => {
+            let list = res.data.data;
+            this.classData = list;
+          }).then(() => {
+            let classData = this.classData;
+            article.get().then(res => {
               let list = res.data.data;
-              this.classData = list;
-            }).then(() => {
-              let classData = this.classData;
-              article.get().then(res => {
-                let list = res.data.data;
-                list.forEach((item,index) => {
-                  item.key = index;
-                  classData.forEach(data => {
-                    if(item.class_id == data.id){
-                      item.class = data.title;
-                    }
-                    if(item.class == null){
-                      item.class = '无';
-                    }
-                  })
-                })
-                this.aritcleData = list;
+              list.forEach((item,index) => {
+                item.key = index;
+                classData.forEach(data => {
+                  if (item.class_id == data.id) {
+                    item.class = data.title;
+                  }
+                  if (item.class == null) {
+                    item.class = '无';
+                  }
+                });
               });
-            })
-          }
-      }).catch( err =>{
-          this.$message.info('删除失败');
-      })
-    }
-  }
+              this.aritcleData = list;
+            });
+          });
+        }
+      }).catch((err) => {
+        this.$message.info('删除失败');
+      });
+    },
+  },
 };
 </script>
 <style scoped>

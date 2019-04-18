@@ -37,21 +37,19 @@ export default {
       class_id:'',
       title:'',
       content:'',
-    }
+    };
   },
   components: {
     commonality,
-    
   },
   created:function(){
     Classify.get().then(res => {
       this.classData = res.data.data;
-    })
+    });
   },
-  
   methods: {
     backtrack:function(){
-      this.$router.push({path: '/admin/aritcle'})
+      this.$router.push({path: '/admin/aritcle'});
     },
     addArticle(){
     let class_id = this.class_id;

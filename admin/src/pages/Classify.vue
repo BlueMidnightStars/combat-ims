@@ -70,8 +70,7 @@ export default {
       title:"",
       id:"",
       theme:'',
-
-    };
+    }
   },
   created:function(){
     Classify.get().then(res => {
@@ -93,8 +92,7 @@ export default {
         this.theme = '编辑分类';
         this.title = title;
         this.id = id;
-        
-      }
+      };
       this.visible = true;
     },
     handleOk() {
@@ -149,10 +147,7 @@ export default {
           item.key = index
         })
         this.classData = list;
-      })
-    },
-    handleChange(value) {
-      console.log(`selected ${value}`);
+      });
     },
   },
 };

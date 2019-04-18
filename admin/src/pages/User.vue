@@ -97,8 +97,7 @@ export default {
         item.key = index
       })
       this.userData = list;
-    }).catch(eer => {
-    })
+    });
   },
   methods: {
     showModal(shu,id,name,phone,password) {
@@ -127,20 +126,18 @@ export default {
         user.post({name:name,phone:phone,password:password}).then(res => {
           if(res.data.code == 200){
           this.$message.info('添加成功');
-          }
+          };
         }).catch( err => {
           this.$message.info('添加失败');
-
-        })
+        });
       }else if (this.shu == 2){
         user.put(id,{name:name,phone:phone,password:password}).then(res => {
           if(res.data.code == 200){
             this.$message.info('编辑成功');
-          }
+          };
         }).catch( err => {
             this.$message.info('编辑失败');
-
-        })
+        });
       }
       user.get().then(res =>{
         let list = res.data.data;
@@ -170,14 +167,14 @@ export default {
         }
       }).catch( err => {
           this.$message.info('删除失败');
-      })
+      });
       user.get().then(res =>{
         let list = res.data.data;
         list.forEach((item, index) => {
           item.key = index
         })
         this.userData = list;
-      })
+      });
     },
   },
 };

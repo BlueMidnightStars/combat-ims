@@ -62,12 +62,10 @@ export default {
   },
   methods: {
     exit(){
-      console.log(1);
       localStorage.removeItem('token');
       this.$router.go(0);
-      
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

@@ -43,20 +43,19 @@ export default {
   methods: {
     // eslint-disable-next-line
     login:function() {
-      console.log(this.password, this.phone);
       let password = this.password;
       let phone = this.phone;
       if(!phone || !password){
-        return alert('请输入账号与密码')
+        this.$message.info('请输入账号与密码');
+        return
       }
       user.login({phone:phone,password:password}).then(res => {
-        console.log(res)
         if(res.data.code == 200){
           localStorage.setItem('token',res.data.token);
           this.$router.push({name: 'user'})
         }
       }).catch(err => {
-        console.log(err);
+        this.$message.info('请输入正确账号和密码');
       })
     },
   },

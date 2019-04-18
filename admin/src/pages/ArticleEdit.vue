@@ -10,7 +10,7 @@
       </div>
       <div class="articleEdit-class-input">
         <p class="articleEdit-input-title">分类:</p>
-        <a-select class="articleEdit-input-desc" style="width: 120px" v-model="class_id"  @change="handleChange">
+        <a-select class="articleEdit-input-desc" style="width: 120px" v-model="class_id">
           <a-select-option :value="item.id" v-for="item in classData" v-bind:key="item.id">{{item.title}}</a-select-option>
         </a-select>
       </div>
@@ -57,9 +57,6 @@ export default {
   methods: {
     backtrack:function(){
       this.$router.push({path: '/admin/aritcle'})
-    },
-    handleChange(value) {
-      console.log(`selected ${value}`);
     },
     saveArticle(){
       let id = this.$route.params.id;
