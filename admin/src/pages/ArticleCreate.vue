@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import commonality from '@/commonality/header_sidebar.vue';
+import commonality from '@/components/header_sidebar.vue';
 import article from '@/models/article';
 import Classify from '@/models/class';
 export default {

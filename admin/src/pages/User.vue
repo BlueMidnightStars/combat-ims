@@ -46,7 +46,7 @@
   </commonality>
 </template>
 <script>
-import commonality from '@/commonality/header_sidebar.vue';
+import commonality from '@/components/header_sidebar.vue';
 
 const columns = [{
   title: '姓名',

@@ -1,6 +1,7 @@
 <template>
   <commonality>
     <div class="user-add-container">
+      <p class="class-notice" style="coloe:red;">最多添加五个分类</p>
       <a-button type="primary" @click="showModal(1)">
         添加用户
       </a-button>
@@ -38,7 +39,7 @@
   </commonality>
 </template>
 <script>
-import commonality from '@/commonality/header_sidebar.vue';
+import commonality from '@/components/header_sidebar.vue';
 import Classify from '@/models/class';
 const columns = [{
   title: 'id',
@@ -103,6 +104,8 @@ export default {
         Classify.post({title:title}).then(res =>{
           if(res.data.code == 200){
             this.$message.info('添加成功');
+          }else{
+            this.$message.info('添加失败');
           }
         }).catch( err =>{
             this.$message.info('添加失败');

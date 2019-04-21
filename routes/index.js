@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var indexController = require('./../controller/index')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
+router.get('/',indexController.allArticleL);
+router.get('/class/:id',indexController.allArticleL);
+router.get('/article/:id',indexController.ArticleL);
 router.get('/admin/*', function(req, res, next){
   res.render('admin');
 })

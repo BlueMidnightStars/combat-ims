@@ -4,7 +4,7 @@ import classify from '@/pages/Classify.vue';
 import aritcle from '@/pages/Aritcle.vue';
 import article_create from '@/pages/ArticleCreate.vue';
 import article_edit from '@/pages/ArticleEdit.vue';
-import header_sidebar from '@/commonality/header_sidebar.vue';
+
 
 
 export default  [
@@ -37,11 +37,5 @@ export default  [
       path: '/admin/article_edit/:id',
       name: 'article_edit',
       component: article_edit,
-    },
-    {
-      path: '/admin/header_sidebar',
-      name: 'header_sidebar',
-      component: header_sidebar,
-    },
-    
+    }
 ];

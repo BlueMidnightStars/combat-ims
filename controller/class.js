@@ -18,6 +18,10 @@ let classController = {
     },
     addClass:async function(req, res, next){
         try{
+            let classList = await classModels.all();
+            if(classList.length >= 5){
+                return res.json({code:0,data:'最多添加五个'})
+            }
             let title = req.body.title;
             if(!title){
                 throw new Error('缺少必要参数'); 
