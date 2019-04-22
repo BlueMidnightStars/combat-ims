@@ -8,7 +8,7 @@
                 标题: {{item.title}}
             </div>
             <div class="article-list-item-time">
-                时间: {{item.created_time}}
+                时间: {{item.created_time_display}}
             </div>
         </a>
     {% else %}

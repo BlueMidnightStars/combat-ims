@@ -1,5 +1,4 @@
 let config = require('./../config');
-console.log(config);
 module.exports =  require('knex')({
     client: 'mysql',
     connection: {
